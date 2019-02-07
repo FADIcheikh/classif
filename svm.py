@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn import svm
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 
 
 
@@ -14,6 +15,12 @@ names = explicative.columns
 target =df['PREMATURE']
 #set 25% for test
 X_train, X_test, y_train, y_test = train_test_split(explicative,target, test_size=0.25, random_state=0)
+#Centrage et reduction
+scaler = StandardScaler()
+scaler.fit(X_train)
+
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
 #check for NA :there is no NA
 for index, row in explicative.iterrows():
     for j in  explicative.columns:
